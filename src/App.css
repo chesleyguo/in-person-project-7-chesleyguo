@@ -515,6 +515,100 @@
   color: var(--text-light);
 }
 
+/* Add Project form */
+.project-form {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.project-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.form-error,
+.delete-error {
+  display: block;
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.delete-error {
+  text-align: center;
+}
+
+/* Project search */
+.project-search {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.project-search input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+.delete-btn {
+  margin-left: auto;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--error-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--error-color);
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: var(--error-color);
+  color: white;
+}
+
+/* GitHub repositories */
+.github-repos {
+  padding: 0 0 4rem;
+  background-color: var(--bg-section);
+}
+
+.github-repos h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.github-repos ul {
+  max-width: 600px;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.github-repos li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.github-repos .status {
+  text-align: center;
+  color: var(--text-light);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar-menu {

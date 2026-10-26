@@ -1,4 +1,4 @@
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, onDelete }) => {
 
   return (
     <div className="project-card">
@@ -27,6 +27,11 @@ const ProjectCard = ({ project }) => {
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
               Live Demo
             </a>
+          )}
+          {onDelete && (
+            <button className="delete-btn" onClick={() => onDelete(project.id)}>
+              Delete
+            </button>
           )}
         </div>
       </div>

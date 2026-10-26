@@ -1,49 +1,73 @@
-import { useState } from 'react';
-// TODO: Import useProjects from context
+import { useState, useEffect } from 'react';
+import { useProjects } from '../context/ProjectsContext';
 import ProjectCard from './ProjectCard';
+import ProjectForm from './ProjectForm';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorMessage from './ErrorMessage';
 
 const Projects = () => {
-  // TODO: Get projects, loading, and error from context
-  // const { projects, loading, error } = useProjects();
+  const { projects, loading, error, deleteProject } = useProjects();
 
+  // Every hook sits above the early returns below
   const [filter, setFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedTerm, setDebouncedTerm] = useState('');
+  const [deleteError, setDeleteError] = useState(null);
 
-  // Temporary hardcoded data - remove when using context
-  const projects = [];
-  const loading = false;
-  const error = null;
+  // Debounce: only filter 500 ms after the user stops typing
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedTerm(searchTerm);
+    }, 500);
 
-  // TODO: Handle loading state
-  // if (loading) {
-  //   return (
-  //     <section id="projects" className="projects">
-  //       <div className="container">
-  //         <h2>Projects</h2>
-  //         <LoadingSpinner />
-  //       </div>
-  //     </section>
-  //   );
-  // }
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchTerm]);
 
-  // TODO: Handle error state
-  // if (error) {
-  //   return (
-  //     <section id="projects" className="projects">
-  //       <div className="container">
-  //         <h2>Projects</h2>
-  //         <ErrorMessage
-  //           message={error}
-  //           onRetry={() => window.location.reload()}
-  //         />
-  //       </div>
-  //     </section>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <section id="projects" className="projects">
+        <div className="container">
+          <h2>My Projects</h2>
+          <LoadingSpinner />
+        </div>
+      </section>
+    );
+  }
 
-  // TODO: Filter projects based on selected category
-  const filteredProjects = projects; // Replace with actual filtering logic
+  if (error) {
+    return (
+      <section id="projects" className="projects">
+        <div className="container">
+          <h2>My Projects</h2>
+          <ErrorMessage
+            message={error}
+            onRetry={() => window.location.reload()}
+          />
+        </div>
+      </section>
+    );
+  }
+
+  const handleDelete = async (id) => {
+    setDeleteError(null);
+    try {
+      await deleteProject(id);
+    } catch (err) {
+      setDeleteError(err.message);
+    }
+  };
+
+  // Derived on every render from projects, filter and debouncedTerm; never stored in state
+  const query = debouncedTerm.trim().toLowerCase();
+  const filteredProjects = projects
+    .filter(project => filter === 'all' || project.category === filter)
+    .filter(project =>
+      query === '' ||
+      project.title.toLowerCase().includes(query) ||
+      (project.description || '').toLowerCase().includes(query)
+    );
 
   const categories = ['all', 'web', 'mobile', 'data'];
 
@@ -51,6 +75,8 @@ const Projects = () => {
     <section id="projects" className="projects">
       <div className="container">
         <h2>My Projects</h2>
+
+        <ProjectForm />
 
         {/* Filter buttons */}
         <div className="project-filters">
@@ -65,11 +91,23 @@ const Projects = () => {
           ))}
         </div>
 
+        <div className="project-search">
+          <input
+            type="search"
+            placeholder="Search projects by title or description..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Search projects"
+          />
+        </div>
+
+        {deleteError && <p className="delete-error">{deleteError}</p>}
+
         {/* Projects grid */}
         <div className="projects-grid">
           {filteredProjects.length > 0 ? (
             filteredProjects.map(project => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard key={project.id} project={project} onDelete={handleDelete} />
             ))
           ) : (
             <p className="no-projects">No projects found in this category.</p>

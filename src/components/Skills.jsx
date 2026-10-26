@@ -10,12 +10,12 @@ const Skills = () => {
     // Simulate API call
     setTimeout(() => {
       setSkills([
-        { id: 1, name: 'React', level: 90, category: 'Frontend' },
-        { id: 2, name: 'JavaScript', level: 95, category: 'Frontend' },
-        { id: 3, name: 'Node.js', level: 80, category: 'Backend' },
-        { id: 4, name: 'Python', level: 75, category: 'Backend' },
-        { id: 5, name: 'MongoDB', level: 70, category: 'Database' },
-        { id: 6, name: 'PostgreSQL', level: 75, category: 'Database' },
+        { id: 1, name: 'JavaScript (ES6+)', level: 92, category: 'Core Web' },
+        { id: 2, name: 'React', level: 88, category: 'Frontend Framework' },
+        { id: 3, name: 'CSS3 & Layouts', level: 90, category: 'Styling' },
+        { id: 4, name: 'Python & Data', level: 85, category: 'Programming & ML' },
+        { id: 5, name: 'Git & GitHub', level: 86, category: 'Tools' },
+        { id: 6, name: 'Node.js & APIs', level: 80, category: 'Backend Integration' },
       ]);
       setLoading(false);
     }, 500);

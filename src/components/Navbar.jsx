@@ -1,17 +1,17 @@
 import { useState } from 'react';
-// TODO: Import useTheme from context
+import { useTheme } from '../context/ThemeContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // TODO: Get theme and toggleTheme from context
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <nav className="navbar">
       <div className="container">
         <div className="navbar-content">
           <div className="navbar-brand">
-            <h1>John Doe</h1>
-            <span>Full Stack Developer</span>
+            <h1>Chesley Guo</h1>
+            <span>Frontend & AI Developer</span>
           </div>
 
           <ul className={`navbar-menu ${isOpen ? 'active' : ''}`}>
@@ -22,11 +22,12 @@ const Navbar = () => {
           </ul>
 
           <div className="navbar-actions">
-            {/* TODO: Add theme toggle button */}
-            {/* Button should show sun icon for light mode, moon for dark */}
-            {/* onClick should call toggleTheme */}
-            <button className="theme-toggle">
-              🌞
+            <button
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? '🌞' : '🌙'}
             </button>
 
             <button

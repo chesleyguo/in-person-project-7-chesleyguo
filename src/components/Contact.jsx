@@ -77,7 +77,7 @@ const Contact = () => {
       <div className="container">
         <h2>Get In Touch</h2>
         <p className="contact-intro">
-          Have a project in mind? Let's work together to bring your ideas to life.
+          Feel free to reach out for collaborations, project inquiries, or just to say hello!
         </p>
 
         <form onSubmit={handleSubmit} className="contact-form">
